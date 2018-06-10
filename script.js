@@ -46,31 +46,34 @@ $(function () {
     room.on("peerJoin", id => {
       console.log(id + "has joined");
       DataChannels[id] = peer.connect(id);
-      DataChannels[id].on("data", data => {
-        console.log(data);
-      });
+      connectDC(DataChannels[id]);
     })
   }
 
   // 非同期で複数のPeerからのdataを受け取る
   function connectDC(dataConnection) {
-    dataConnection.on("data", async data => {
-      await console.log(data);
+    dataConnection.on("data", data => {
+      console.log(data);
     });
   }
 
   $("#send").on("click", function () {
-    $.each(DataChannels, async (key, value) => {
+    $.each(DataChannels, (key, value) => {
 
-      const result = await sendData(key, value);
+      sendData(key, value);
     });
   })
 
+
   async function sendData(key, value) {
-    await value.send("my name is " + key);
+    value.send("my name is " + key);
     for (var i = 0; i < 1000; i++) {
       await value.send(i);
-      console.log(i + "to " + key);
+      console.log(i + "to " + key + " count:" + count);
     }
+  }
+
+  function testMethod(i, value, key) {
+
   }
 })
