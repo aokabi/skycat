@@ -1,7 +1,7 @@
 // DOM構築後に実行
 $(function () {
   const peer = new Peer({
-    key: "1e3c9a15-4485-4d10-aa19-67adc3ba5d70",
+    key: window.__SKYWAY_KEY__,
     debug: 3,
   });
 
